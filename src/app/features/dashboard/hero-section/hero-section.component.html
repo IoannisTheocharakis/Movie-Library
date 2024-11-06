@@ -1,0 +1,12 @@
+<div
+  class="hero-container w-full h-29rem overflow-hidden flex justify-content-center align-items-center"
+>
+  <div
+    class="relative w-full h-full"
+    [ngStyle]="{ 'background-image': 'url(' + currentImage() + ')' }"
+    [class]="animationClass()"
+  >
+    <div class="overlay"></div>
+  </div>
+  <h1 class="hero-title absolute">Find your favorite movie</h1>
+</div>
