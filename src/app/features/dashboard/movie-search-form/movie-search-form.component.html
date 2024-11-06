@@ -1,0 +1,21 @@
+<div class="container p-fluid w-full">
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="onSearch()"
+    class="w-full flex justify-content-center"
+  >
+    <div class="flex justify-content-center gap-2 w-full">
+      <div class="input-field">
+        <input
+          id="query"
+          pInputText
+          formControlName="query"
+          placeholder="Search movies..."
+          type="text"
+          (input)="onChangeInput($event)"
+        />
+      </div>
+      <p-button label="Search" type="submit" [disabled]="!isFormValid()" />
+    </div>
+  </form>
+</div>
