@@ -26,7 +26,19 @@ export class MovieListComponent {
 
   imagePath = environment.imagePath;
 
+  currentPage = 0;
+  itemsPerPage = 20;
+
   moviesResponse = computed<IMoviesResponse | null>(
     () => this.moviesService.getMoviesResponse
   );
+
+  fetchMovies() {
+    this.moviesService.fetchMovies(undefined, this.currentPage + 1);
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.page;
+    this.fetchMovies();
+  }
 }
