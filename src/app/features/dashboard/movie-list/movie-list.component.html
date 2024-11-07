@@ -1,1 +1,37 @@
-<p>movie-list works!</p>
+@if (moviesResponse()?.results) {
+<div class="grid container">
+  @for ( movie of moviesResponse()!.results; track movie.id) {
+  <div class="col-12 lg:col-6">
+    <p-card class="flex w-full cursor-pointer">
+      <img
+        class="h-19rem image-style"
+        [src]="imagePath + 'w300' + movie.poster_path"
+        alt="Image"
+      />
+      <div class="p-3 flex flex-column justify-content-between">
+        <div class="flex flex-column gap-2">
+          <h3 class="m-0">{{ movie.title }}</h3>
+          <p class="movie-description">
+            {{ movie.overview }}
+          </p>
+        </div>
+        <div class="flex gap-1 align-items-center">
+          <i class="pi pi-star-fill" style="font-size: 1rem"></i>
+          <p class="m-0 text-center">{{ movie.vote_average }}</p>
+          <p class="m-0 text-center">({{ movie.vote_count }})</p>
+        </div>
+      </div>
+    </p-card>
+  </div>
+  }
+</div>
+
+<!-- <p-paginator
+  (onPageChange)="onPageChange($event)"
+  [first]="moviesResponse()."
+  [rows]="moviesResponse()?."
+  [totalRecords]="moviesResponse()?.total_results"
+  [rowsPerPageOptions]="[10, 20, 30]"
+/> -->
+
+}

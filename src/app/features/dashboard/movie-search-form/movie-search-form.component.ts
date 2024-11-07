@@ -5,6 +5,7 @@ import {
   signal,
   effect,
   computed,
+  OnInit,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -24,7 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
   templateUrl: './movie-search-form.component.html',
   styleUrl: './movie-search-form.component.scss',
 })
-export class MovieSearchFormComponent {
+export class MovieSearchFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private moviesService = inject(MoviesService);
 
@@ -36,26 +37,14 @@ export class MovieSearchFormComponent {
     ]),
   });
 
-  isFormValid = signal(this.searchForm.valid);
-
-  constructor() {}
-
-  onChangeInput(event: Event) {
-    console.log("hello")
-    this.isFormValid.set(this.searchForm.valid);
+  ngOnInit(): void {
+    this.moviesService.fetchMovies('a', 1);
   }
 
   onSearch() {
-    if (this.isFormValid()) {
+    if (this.searchForm.valid) {
       const query = this.searchForm.controls.query.value!;
-      this.moviesService.getMovies(query).subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (error) => {
-          console.error('Error fetching movies:', error);
-        },
-      });
+      this.moviesService.fetchMovies(query);
     }
   }
 }

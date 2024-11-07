@@ -12,10 +12,9 @@
           formControlName="query"
           placeholder="Search movies..."
           type="text"
-          (input)="onChangeInput($event)"
         />
       </div>
-      <p-button label="Search" type="submit" [disabled]="!isFormValid()" />
+      <p-button label="Search" type="submit" [disabled]="!searchForm.valid" />
     </div>
   </form>
 </div>
