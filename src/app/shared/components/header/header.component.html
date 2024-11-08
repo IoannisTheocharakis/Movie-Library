@@ -1,15 +1,28 @@
 <p-toolbar>
   <div
-    class="container h-2rem w-full flex justify-content-between align-items-center"
+    class="container min-h-2rem w-full flex justify-content-between align-items-center"
   >
-    <p>LOGO</p>
+    <p class="cursor-pointer" (click)="navigateToDashboard()">LOGO</p>
     <div class="flex align-items-center justify-content-center">
       <a (click)="changeTheme('light-theme')" class="cursor-pointer"> Light </a>
       <a (click)="changeTheme('dark-theme')" class="cursor-pointer"> Dark </a>
     </div>
-    <p-avatar
-      image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-      shape="circle"
-    />
+    <div>
+      <p-avatar
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+        shape="circle"
+        size="large"
+        (click)="op.toggle($event)"
+        class="cursor-pointer"
+      >
+      </p-avatar>
+      <p-overlayPanel #op>
+        <p-button
+          label="Collections"
+          [text]="true"
+          (click)="navigateToCollections()"
+        />
+      </p-overlayPanel>
+    </div>
   </div>
 </p-toolbar>

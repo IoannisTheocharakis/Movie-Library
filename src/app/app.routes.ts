@@ -14,6 +14,13 @@ export const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
+      {
+        path: 'collections',
+        loadChildren: () =>
+          import('./features/collections/collections.module').then(
+            (m) => m.CollectionsModule
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: 'home' },
