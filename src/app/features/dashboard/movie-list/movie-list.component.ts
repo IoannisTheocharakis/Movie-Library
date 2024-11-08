@@ -1,11 +1,14 @@
 import { Component, computed, inject } from '@angular/core';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from '../../../core/services/movies.service';
 import { IMoviesResponse } from '../../../core/models/movies.model';
 import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { environment } from '../../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
+import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface PageEvent {
   first: number;
@@ -17,7 +20,14 @@ interface PageEvent {
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CardModule, ImageModule, FormsModule, PaginatorModule],
+  imports: [
+    CardModule,
+    ImageModule,
+    FormsModule,
+    PaginatorModule,
+    DialogModule,
+    RouterModule,
+  ],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss',
 })
@@ -41,4 +51,6 @@ export class MovieListComponent {
     this.currentPage = event.page;
     this.fetchMovies();
   }
+
+  openDialog(movieID: number) {}
 }

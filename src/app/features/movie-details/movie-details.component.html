@@ -1,0 +1,9 @@
+<p-dialog
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [draggable]="false"
+  (onHide)="onCloseDialog()"
+  header="Movie Details"
+>
+  <h2>{{ movie()?.title }}</h2>
+</p-dialog>

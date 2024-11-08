@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { IMoviesResponse } from '../../../core/models/movies.model';
-import { environment } from '../../../../environments/environment.development';
+import { IMovie, IMoviesResponse } from '../models/movies.model';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,13 @@ export class MoviesService {
       },
       error: (error) => console.error('Failed to fetch movies', error),
     });
+  }
+
+  getMovieDetails(movieID: number | string) {
+    const url = `https://api.themoviedb.org/3/movie/${movieID}`;
+    let params = new HttpParams().set('api_key', environment.apiKey || '');
+
+    return this.http.get<IMovie>(url, { params });
   }
 
   get getMoviesResponse() {

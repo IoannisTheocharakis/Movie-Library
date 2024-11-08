@@ -2,7 +2,7 @@
 <div class="flex flex-column gap-4 container">
   <div class="grid">
     @for ( movie of moviesResponse()!.results; track movie.id) {
-    <div class="col-12 lg:col-6">
+    <div class="col-12 lg:col-6" [routerLink]="'movie/' + movie.id">
       <p-card>
         <div class="flex flex-column sm:flex-row w-full cursor-pointer">
           <img
@@ -36,4 +36,5 @@
     (onPageChange)="onPageChange($event)"
   />
 </div>
+<router-outlet />
 }

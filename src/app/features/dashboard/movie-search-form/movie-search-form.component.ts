@@ -13,7 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from '../../../core/services/movies.service';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';

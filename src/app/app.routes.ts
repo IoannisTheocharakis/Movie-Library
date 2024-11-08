@@ -1,12 +1,10 @@
 import { Routes } from '@angular/router';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./layouts/default-layout/default-layout.component').then(
-        (c) => c.DefaultLayoutComponent
-      ),
+    component: DefaultLayoutComponent,
     // canActivate: [AuthGuard],
     children: [
       {
@@ -18,4 +16,5 @@ export const routes: Routes = [
       },
     ],
   },
+  { path: '**', redirectTo: 'home' },
 ];
