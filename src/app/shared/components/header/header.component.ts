@@ -13,7 +13,6 @@ import { ThemeService } from '../../../core/services/theme.service';
 export class HeaderComponent {
   themeService = inject(ThemeService);
   changeTheme(theme: string) {
-    console.log(theme);
     this.themeService.switchTheme(theme);
   }
 }

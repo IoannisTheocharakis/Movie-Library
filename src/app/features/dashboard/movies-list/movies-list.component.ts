@@ -3,22 +3,14 @@ import { MoviesService } from '../../../core/services/movies.service';
 import { IMoviesResponse } from '../../../core/models/movies.model';
 import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
-import { environment } from '../../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
 import { DialogModule } from 'primeng/dialog';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
-interface PageEvent {
-  first: number;
-  rows: number;
-  page: number;
-  pageCount: number;
-}
+import { MovieElementComponent } from '../movie-element/movie-element.component';
 
 @Component({
-  selector: 'app-movie-list',
+  selector: 'app-movies-list',
   standalone: true,
   imports: [
     CardModule,
@@ -27,14 +19,13 @@ interface PageEvent {
     PaginatorModule,
     DialogModule,
     RouterModule,
+    MovieElementComponent,
   ],
-  templateUrl: './movie-list.component.html',
-  styleUrl: './movie-list.component.scss',
+  templateUrl: './movies-list.component.html',
+  styleUrl: './movies-list.component.scss',
 })
-export class MovieListComponent {
+export class MoviesListComponent {
   private moviesService = inject(MoviesService);
-
-  imagePath = environment.imagePath;
 
   currentPage = 0;
   itemsPerPage = 20;
@@ -44,7 +35,7 @@ export class MovieListComponent {
   );
 
   fetchMovies() {
-    this.moviesService.fetchMovies(undefined, this.currentPage + 1);
+    this.moviesService.getMoviesList(undefined, this.currentPage + 1);
   }
 
   onPageChange(event: any) {

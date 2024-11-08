@@ -5,5 +5,67 @@
   (onHide)="onCloseDialog()"
   header="Movie Details"
 >
-  <h2>{{ movie()?.title }}</h2>
+  @if(movie()){
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-column sm:flex-row w-full cursor-pointer">
+      <img
+        class="h-19rem image-style"
+        [src]="imagePath + 'w300' + movie()!.poster_path"
+        alt="Image"
+      />
+      <div class="p-3 flex flex-column justify-content-between">
+        <div class="flex flex-column gap-2">
+          <h3 class="m-0">{{ movie()!.title }}</h3>
+          <p class="movie-description">
+            {{ movie()!.overview }}
+          </p>
+        </div>
+        <div class="flex flex-column gap-1">
+          <div class="flex gap-1 align-items-center">
+            <i class="pi pi-star-fill" style="font-size: 1rem"></i>
+            <p class="m-0 text-center">{{ movie()!.vote_average }}</p>
+            <p class="m-0 text-center">({{ movie()!.vote_count }})</p>
+          </div>
+          <div class="flex gap-1 align-items-center">
+            <i class="pi pi-calendar" style="font-size: 1rem"></i>
+            <p class="m-0 text-center">Release Date:</p>
+            <p class="m-0 text-center">{{ movie()!.release_date }}</p>
+          </div>
+          <div class="flex gap-1 align-items-center">
+            <i class="pi pi-euro" style="font-size: 1rem"></i>
+            <p class="m-0 text-center">Revenue:</p>
+            <p class="m-0 text-center">{{ movie()!.revenue }}</p>
+          </div>
+          <div class="flex gap-1 align-items-start">
+            <div class="flex gap-1 align-items-center">
+              <i class="pi pi-language" style="font-size: 1rem"></i>
+              <p class="m-0 text-center">Languages:</p>
+            </div>
+            <div class="flex flex-wrap gap-1">
+              @for (language of movie()!.spoken_languages; track $index) {
+              <span>
+                {{ language.name }}@if ($index <
+                movie()!.spoken_languages.length - 1) {,}
+              </span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-column">
+      <h3>Rate the movie</h3>
+      <div class="flex flex-row gap-2 align-items-center">
+        <p-rating [(ngModel)]="ratingValue" [stars]="10" />
+        <p-button
+          label="Submit"
+          (onClick)="onRateMovie()"
+          [disabled]="ratingValue === 0"
+        />
+      </div>
+      <p-toast />
+    </div>
+  </div>
+  }
 </p-dialog>

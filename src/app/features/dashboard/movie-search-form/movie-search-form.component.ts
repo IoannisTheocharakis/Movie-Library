@@ -38,13 +38,13 @@ export class MovieSearchFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.moviesService.fetchMovies('a', 1);
+    this.moviesService.getMoviesList('a', 1);
   }
 
   onSearch() {
     if (this.searchForm.valid) {
       const query = this.searchForm.controls.query.value!;
-      this.moviesService.fetchMovies(query);
+      this.moviesService.getMoviesList(query);
     }
   }
 }

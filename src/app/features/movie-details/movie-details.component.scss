@@ -1,4 +1,15 @@
 ::ng-deep .p-dialog {
-    min-width: 400px !important;
-    max-width: 800px !important;
+  min-width: 400px !important;
+  max-width: 1000px !important;
+}
+
+.movie-description {
+  max-height: 9rem;
+  overflow: auto;
+}
+
+@media (max-width: 400px) {
+  ::ng-deep .p-dialog {
+    min-width: unset !important;
   }
+}

@@ -4,8 +4,8 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterModule } from '@angular/router';
 import { HeroSectionComponent } from './hero-section/hero-section.component';
 import { MovieSearchFormComponent } from './movie-search-form/movie-search-form.component';
-import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
+import { MoviesListComponent } from './movies-list/movies-list.component';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -13,7 +13,7 @@ import { MovieDetailsComponent } from '../movie-details/movie-details.component'
     CommonModule,
     HeroSectionComponent,
     MovieSearchFormComponent,
-    MovieListComponent,
+    MoviesListComponent,
     RouterModule.forChild([
       {
         path: '',
