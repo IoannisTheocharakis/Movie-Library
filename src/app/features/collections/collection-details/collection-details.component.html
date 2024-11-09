@@ -1,0 +1,47 @@
+<div class="container flex flex-column gap-2 mt-4">
+  <div class="flex flex-column gap-4">
+    <p-button
+      label="All Collections"
+      icon="pi pi-arrow-left"
+      (click)="navigateBackToCollections()"
+      [text]="true"
+    />
+    <h1>Colllection</h1>
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <h2>Title</h2>
+    <p>{{ collection()?.title }}</p>
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <h2>Description</h2>
+    <p>{{ collection()?.description }}</p>
+  </div>
+  <div class="flex flex-column gap-1">
+    <h2>Movies</h2>
+    @if(collection() && collection()!.movies.length > 0 ){
+    <div class="grid">
+      @for (movie of collection()?.movies; track $index) {
+      <div class="col-12 md:col-6">
+        <app-movie-element [movie]="movie">
+          <p-button
+            icon="pi pi-trash"
+            class="z-5"
+            severity="danger"
+            [rounded]="true"
+            [text]="true"
+            (click)="
+              onRemoveMovieFromCollection(movie.id); $event.stopPropagation()
+            "
+          />
+        </app-movie-element>
+      </div>
+      }
+    </div>
+    }@else{
+    <h3>No movies found!</h3>
+    }
+  </div>
+</div>
+<p-toast />

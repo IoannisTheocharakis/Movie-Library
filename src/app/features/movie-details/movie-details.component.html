@@ -9,7 +9,7 @@
   <div class="flex flex-column gap-3">
     <div class="flex flex-column sm:flex-row w-full cursor-pointer">
       <img
-        class="h-19rem image-style"
+        class="h-19rem image-style border-round-lg"
         [src]="imagePath + 'w300' + movie()!.poster_path"
         alt="Image"
       />
@@ -64,8 +64,8 @@
           [disabled]="ratingValue === 0"
         />
       </div>
-      <p-toast />
     </div>
   </div>
   }
 </p-dialog>
+<p-toast />

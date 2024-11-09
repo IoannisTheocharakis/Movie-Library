@@ -8,6 +8,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
 import { MovieElementComponent } from '../movie-element/movie-element.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-movies-list',
@@ -20,13 +22,15 @@ import { MovieElementComponent } from '../movie-element/movie-element.component'
     DialogModule,
     RouterModule,
     MovieElementComponent,
+    ButtonModule,
   ],
   templateUrl: './movies-list.component.html',
   styleUrl: './movies-list.component.scss',
 })
 export class MoviesListComponent {
   private moviesService = inject(MoviesService);
-
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   currentPage = 0;
   itemsPerPage = 20;
 
@@ -43,5 +47,9 @@ export class MoviesListComponent {
     this.fetchMovies();
   }
 
-  openDialog(movieID: number) {}
+  onOpenDialog(id: number) {
+    this.router.navigate(['add-movie-to-collection', id], {
+      relativeTo: this.route,
+    });
+  }
 }

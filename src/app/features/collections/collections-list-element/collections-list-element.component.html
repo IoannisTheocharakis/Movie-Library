@@ -1,0 +1,17 @@
+<p-card [header]="collection().title" class="cursor-pointer">
+  @if (collection().movies.length > 0) {
+  <div class="grid">
+    @for (movie of collection().movies.slice(0, 4); track $index) {
+    <div class="col-6 flex justify-content-center align-items-center">
+      <img
+        class="h-8rem sm:h-12rem image-style border-round-lg"
+        [src]="imagePath + 'w300' + movie.poster_path"
+        alt="Image"
+      />
+    </div>
+    }
+  </div>
+  } @else {
+  <h3 class="w-full text-center">Empty</h3>
+  }
+</p-card>

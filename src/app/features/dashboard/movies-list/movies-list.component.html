@@ -1,20 +1,27 @@
 @if (moviesResponse()?.results) {
-    <div class="flex flex-column gap-4 container">
-      <div class="grid">
-        @for ( movie of moviesResponse()!.results; track movie.id) {
-        <div class="col-12 lg:col-6" [routerLink]="'movie/' + movie.id">
-          <app-movie-element [movie]="movie"></app-movie-element>
-        </div>
-        }
-      </div>
-    
-      <p-paginator
-        [rows]="itemsPerPage"
-        [totalRecords]="moviesResponse()?.total_results"
-        [first]="currentPage * itemsPerPage"
-        (onPageChange)="onPageChange($event)"
-      />
+<div class="flex flex-column gap-4 container">
+  <div class="grid">
+    @for ( movie of moviesResponse()!.results; track movie.id) {
+    <div class="col-12 lg:col-6">
+      <app-movie-element [movie]="movie">
+        <p-button
+          icon="pi pi-folder-plus"
+          class="z-5"
+          [rounded]="true"
+          [text]="true"
+          (click)="onOpenDialog(movie.id); $event.stopPropagation()"
+        />
+      </app-movie-element>
     </div>
-    <router-outlet />
     }
-    
+  </div>
+
+  <p-paginator
+    [rows]="itemsPerPage"
+    [totalRecords]="moviesResponse()?.total_results"
+    [first]="currentPage * itemsPerPage"
+    (onPageChange)="onPageChange($event)"
+  />
+</div>
+<router-outlet />
+}
