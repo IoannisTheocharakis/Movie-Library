@@ -1,13 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CollectionsService } from '../../../core/services/collections.service';
 import { ICollection } from '../../../core/models/collections.model';
-import { RouterModule } from '@angular/router';
 import { CollectionsListElementComponent } from '../collections-list-element/collections-list-element.component';
 
 @Component({
   selector: 'app-collections-list',
   standalone: true,
-  imports: [RouterModule, CollectionsListElementComponent],
+  imports: [CollectionsListElementComponent],
   templateUrl: './collections-list.component.html',
   styleUrl: './collections-list.component.scss',
 })
