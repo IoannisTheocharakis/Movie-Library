@@ -1,7 +1,7 @@
 @if (collections().length > 0) {
 <section class="grid">
   @for (collection of collections(); track $index) {
-  <div class="col-12 xl:col-3 md:col-6" [routerLink]="collection.id">
+  <div class="col-12 xl:col-3 md:col-6">
     <app-collections-list-element [collection]="collection" />
   </div>
   }

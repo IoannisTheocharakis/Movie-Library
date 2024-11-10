@@ -1,4 +1,17 @@
-<p-card [header]="collection().title" class="cursor-pointer">
+<p-card class="cursor-pointer" [routerLink]="collection().id">
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-between align-items-center px-3">
+      <h2>{{ collection().title }}</h2>
+      <p-button
+        icon="pi pi-trash"
+        class="z-5"
+        severity="danger"
+        [rounded]="true"
+        [text]="true"
+        (click)="onRemoveCollection($event); $event.stopPropagation()"
+      ></p-button>
+    </div>
+  </ng-template>
   @if (collection().movies.length > 0) {
   <div class="grid">
     @for (movie of collection().movies.slice(0, 4); track $index) {
@@ -15,3 +28,4 @@
   <h3 class="w-full text-center">Empty</h3>
   }
 </p-card>
+<p-confirmDialog />

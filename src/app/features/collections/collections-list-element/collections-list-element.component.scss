@@ -1,3 +1,7 @@
 :host ::ng-deep .p-card {
   height: 100% !important;
 }
+::ng-deep .p-confirm-dialog {
+  max-width: 600px;
+  width: 100%;
+}
