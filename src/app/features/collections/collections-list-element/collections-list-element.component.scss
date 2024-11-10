@@ -5,3 +5,10 @@
   max-width: 600px;
   width: 100%;
 }
+
+.card-title-truncate {
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

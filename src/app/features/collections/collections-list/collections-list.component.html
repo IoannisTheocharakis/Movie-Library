@@ -1,11 +1,20 @@
 @if (collections().length > 0) {
-<section class="grid">
-  @for (collection of collections(); track $index) {
-  <div class="col-12 xl:col-3 md:col-6">
-    <app-collections-list-element [collection]="collection" />
-  </div>
-  }
-</section>
+<div class="flex flex-column gap-4 container">
+  <section class="grid">
+    @for (collection of paginatedCollections(); track $index) {
+    <div class="col-12 xl:col-3 md:col-6">
+      <app-collections-list-element [collection]="collection" />
+    </div>
+    }
+  </section>
+  <p-paginator
+    [rows]="rowsPerPage()"
+    [totalRecords]="collections().length"
+    (onPageChange)="onPageChange($event)"
+    styleClass="mt-4"
+    [rowsPerPageOptions]="[10, 15, 20, 40]"
+  />
+</div>
 }@else {
 <section class="flex justify-content-center my-5">
   <h2>You have not any collection yet</h2>

@@ -4,14 +4,17 @@
   >
     <h2 class="cursor-pointer" (click)="navigateToDashboard()">Film Finder</h2>
     <div>
+
+
+      <app-burger-menu class="block md:hidden"/>
       <p-avatar
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
         shape="circle"
         size="large"
         (click)="op.toggle($event)"
-        class="cursor-pointer"
-      >
-      </p-avatar>
+        class="cursor-pointer hidden md:block"
+      />
+
       <p-overlayPanel #op>
         <div class="flex flex-column gap-3">
           <p-button
@@ -21,7 +24,7 @@
             (click)="navigateToCollections()"
           />
           <p-selectButton
-            [options]="stateOptions"
+            [options]="themeOptions"
             [(ngModel)]="value"
             (ngModelChange)="changeTheme($event)"
             optionLabel="label"

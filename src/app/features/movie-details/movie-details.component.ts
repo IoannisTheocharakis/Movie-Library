@@ -1,4 +1,12 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { IMovieDetails } from '../../core/models/movies.model';
 import { MoviesService } from '../../core/services/movies.service';
 import { DialogModule } from 'primeng/dialog';
@@ -29,17 +37,23 @@ export class MovieDetailsComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id') || '';
   imagePath = environment.imagePath;
   displayDialog: boolean = false;
-  movie = signal<IMovieDetails | null>(null);
-  ratingValue: number = 0;
-
+  movie = computed(() => this.moviesService.movieDetails());
+  ratingValue = 0;
+  ratingChangeEffect = effect(
+    () => {
+      if (this.movie()) {
+        const movieRating = this.moviesService.getMovieRating(this.movie()!.id);
+        this.ratingValue = movieRating ? movieRating.rate : 0;
+      }
+    },
+    { allowSignalWrites: true }
+  );
+  
   ngOnInit() {
+    if (!this.movie() || this.movie()!.id !== +this.id) {
+      this.moviesService.fetchMovieDetails(this.id);
+    }
     this.displayDialog = true;
-    this.moviesService.getMovieDetails(this.id).subscribe({
-      next: (movieDetails) => {
-        this.movie.set(movieDetails);
-      },
-      error: (error) => console.error('Failed to fetch movie details', error),
-    });
   }
 
   onRateMovie() {
@@ -50,7 +64,11 @@ export class MovieDetailsComponent implements OnInit {
         this.ratingValue
       )
       .subscribe({
-        next: (data) => {
+        next: () => {
+          this.moviesService.setRatingToLocalStorage(
+            this.movie()!.id,
+            this.ratingValue
+          );
           this.messageService.add({
             severity: 'success',
             summary: 'Success',

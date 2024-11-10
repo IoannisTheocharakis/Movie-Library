@@ -1,0 +1,46 @@
+<div class="container flex flex-column gap-2 mt-4">
+  <p-button
+    label="All Collections"
+    icon="pi pi-arrow-left"
+    (click)="navigateBackToCollections()"
+    [text]="true"
+  />
+  <h1>Update Collection</h1>
+
+  <form
+    [formGroup]="saveCollectionForm"
+    (submit)="saveCollectionForm.valid && onSubmit()"
+  >
+    <div class="flex flex-column gap-3">
+      <div class="flex flex-column gap-2">
+        <label for="title">Title*</label>
+        <input
+          pInputText
+          id="title"
+          aria-describedby="collection-title"
+          formControlName="title"
+        />
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="description">Description*</label>
+        <textarea
+          pInputTextarea
+          id="description"
+          rows="5"
+          cols="30"
+          [autoResize]="true"
+          aria-describedby="collection-description"
+          formControlName="description"
+        >
+        </textarea>
+      </div>
+      <div class="flex flex-row w-full justify-content-end">
+        <p-button
+          label="Save"
+          type="submit"
+          [disabled]="!saveCollectionForm.valid"
+        />
+      </div>
+    </div>
+  </form>
+</div>
