@@ -1,0 +1,11 @@
+<p-button
+  icon="pi pi-trash"
+  [label]="iconStyle() ? undefined : 'Delete'"
+  [rounded]="iconStyle() ? true : false"
+  [text]="iconStyle() ? true : false"
+  class="z-5"
+  severity="danger"
+  (click)="onDeleteElement($event); $event.stopPropagation()"
+/>
+<p-confirmDialog />
+<p-toast />
