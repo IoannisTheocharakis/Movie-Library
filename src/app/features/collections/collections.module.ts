@@ -21,7 +21,6 @@ import { MessageService } from 'primeng/api';
       {
         path: '',
         component: CollectionsComponent,
-        children: [{ path: 'movie/:id', component: MovieDetailsComponent }],
       },
       {
         path: 'create-collection',
@@ -30,6 +29,7 @@ import { MessageService } from 'primeng/api';
       {
         path: ':id',
         component: CollectionDetailsComponent,
+        children: [{ path: 'movie/:id', component: MovieDetailsComponent }],
       },
     ]),
   ],

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
-import { MovieElementComponent } from '../movie-element/movie-element.component';
+import { MovieElementComponent } from '../../../shared/components/movie-element/movie-element.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
@@ -31,6 +31,8 @@ export class MoviesListComponent {
   private moviesService = inject(MoviesService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
+  query = computed(() => this.moviesService.moviesQuerySignal());
   currentPage = 0;
   itemsPerPage = 20;
 

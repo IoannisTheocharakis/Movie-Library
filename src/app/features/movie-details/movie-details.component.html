@@ -1,4 +1,5 @@
 <p-dialog
+  [dismissableMask]="true"
   [(visible)]="displayDialog"
   [modal]="true"
   [draggable]="false"
@@ -59,7 +60,7 @@
       <div class="flex flex-row gap-2 align-items-center">
         <p-rating [(ngModel)]="ratingValue" [stars]="10" />
         <p-button
-          label="Submit"
+          label="Rate"
           (onClick)="onRateMovie()"
           [disabled]="ratingValue === 0"
         />
