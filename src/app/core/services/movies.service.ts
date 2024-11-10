@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment.development';
 })
 export class MoviesService {
   private moviesResponseSignal = signal<IMoviesResponse | null>(null);
-  private moviesQuerySignal = signal<string>('');
+  moviesQuerySignal = signal<string>('');
 
   http = inject(HttpClient);
 

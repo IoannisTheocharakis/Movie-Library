@@ -1,0 +1,15 @@
+:host ::ng-deep .p-card,
+:host ::ng-deep .p-card .p-card-content,
+:host ::ng-deep .p-card .p-card-body {
+  padding: 0 !important;
+  width: 100%;
+}
+
+:host ::ng-deep .p-card .p-card-content {
+  display: flex;
+}
+
+:host ::ng-deep .p-card {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}

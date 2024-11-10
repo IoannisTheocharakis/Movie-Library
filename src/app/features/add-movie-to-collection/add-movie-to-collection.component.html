@@ -1,9 +1,10 @@
 <p-dialog
+  [dismissableMask]="true"
   [(visible)]="displayDialog"
   [modal]="true"
   [draggable]="false"
   (onHide)="onCloseDialog()"
-  header="Add movie to collection"
+  header="Add to collection"
 >
   @if(movie()){
   <div class="flex flex-column gap-3">
@@ -51,28 +52,7 @@
       </div>
       }
     </div>
-    <div class="flex flex-column gap-3">
-      <div class="flex flex-column sm:flex-row w-full cursor-pointer">
-        <img
-          class="h-19rem image-style border-round-lg"
-          [src]="imagePath + 'w300' + movie()!.poster_path"
-          alt="Image"
-        />
-        <div class="p-3 flex flex-column justify-content-between">
-          <div class="flex flex-column gap-2">
-            <h3 class="m-0">{{ movie()!.title }}</h3>
-            <p class="movie-description">
-              {{ movie()!.overview }}
-            </p>
-          </div>
-          <div class="flex gap-1 align-items-center">
-            <i class="pi pi-star-fill" style="font-size: 1rem"></i>
-            <p class="m-0 text-center">{{ movie()!.vote_average }}</p>
-            <p class="m-0 text-center">({{ movie()!.vote_count }})</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-movie-element [movie]="movie()!" />
   </div>
   }
 </p-dialog>

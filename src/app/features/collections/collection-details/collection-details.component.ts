@@ -1,17 +1,23 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CollectionsService } from '../../../core/services/collections.service';
 import { ICollection } from '../../../core/models/collections.model';
 import { CardModule } from 'primeng/card';
-import { MovieElementComponent } from '../../dashboard/movie-element/movie-element.component';
+import { MovieElementComponent } from '../../../shared/components/movie-element/movie-element.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-collection-details',
   standalone: true,
-  imports: [ButtonModule, CardModule, MovieElementComponent, ToastModule],
+  imports: [
+    ButtonModule,
+    CardModule,
+    MovieElementComponent,
+    ToastModule,
+    RouterModule,
+  ],
   providers: [MessageService],
   templateUrl: './collection-details.component.html',
   styleUrl: './collection-details.component.scss',

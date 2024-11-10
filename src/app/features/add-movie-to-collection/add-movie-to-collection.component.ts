@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
+import { MovieElementComponent } from '../../shared/components/movie-element/movie-element.component';
 
 @Component({
   selector: 'app-add-movie-to-collection',
@@ -26,7 +27,7 @@ import { ToastModule } from 'primeng/toast';
     RouterModule,
     DropdownModule,
     ToastModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,MovieElementComponent
   ],
   providers: [MessageService],
   templateUrl: './add-movie-to-collection.component.html',

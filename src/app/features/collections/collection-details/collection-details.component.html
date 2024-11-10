@@ -24,18 +24,20 @@
     <div class="grid">
       @for (movie of collection()?.movies; track $index) {
       <div class="col-12 md:col-6">
-        <app-movie-element [movie]="movie">
-          <p-button
-            icon="pi pi-trash"
-            class="z-5"
-            severity="danger"
-            [rounded]="true"
-            [text]="true"
-            (click)="
-              onRemoveMovieFromCollection(movie.id); $event.stopPropagation()
-            "
-          />
-        </app-movie-element>
+        <p-card>
+          <app-movie-element [movie]="movie">
+            <p-button
+              icon="pi pi-trash"
+              class="z-5"
+              severity="danger"
+              [rounded]="true"
+              [text]="true"
+              (click)="
+                onRemoveMovieFromCollection(movie.id); $event.stopPropagation()
+              "
+            />
+          </app-movie-element>
+        </p-card>
       </div>
       }
     </div>
@@ -45,3 +47,4 @@
   </div>
 </div>
 <p-toast />
+<router-outlet />
