@@ -51,11 +51,7 @@
       </div>
       }
     </div>
-    @if(loading()){
-    <app-skeleton-movie-element />
-    }@else if(movie()){
     <app-movie-element [movie]="movie()!" />
-    }
   </div>
 </p-dialog>
 <p-toast />

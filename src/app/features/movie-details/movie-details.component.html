@@ -45,8 +45,8 @@
             <div class="flex flex-wrap gap-1">
               @for (language of movie()!.spoken_languages; track $index) {
               <span>
-                {{ language.name }}@if ($index <
-                movie()!.spoken_languages.length - 1) {,}
+                {{ language.name }}
+                @if ($index < movie()!.spoken_languages.length - 1) {,}
               </span>
               }
             </div>

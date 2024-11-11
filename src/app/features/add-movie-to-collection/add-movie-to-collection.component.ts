@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MoviesService } from '../../core/services/movies.service';
 import { environment } from '../../../environments/environment.development';
@@ -15,7 +15,8 @@ import {
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { MovieElementComponent } from '../../shared/components/movie-element/movie-element.component';
-import { SkeletonMovieElementComponent } from '../../shared/components/skeleton-movie-element/skeleton-movie-element.component';
+import { IMovieDetails } from '../../core/models/movies.model';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-add-movie-to-collection',
@@ -28,7 +29,6 @@ import { SkeletonMovieElementComponent } from '../../shared/components/skeleton-
     ToastModule,
     ReactiveFormsModule,
     MovieElementComponent,
-    SkeletonMovieElementComponent,
   ],
   providers: [MessageService],
   templateUrl: './add-movie-to-collection.component.html',
@@ -42,7 +42,6 @@ export class AddMovieToCollectionComponent implements OnInit {
   private fb = inject(FormBuilder);
   private messageService = inject(MessageService);
 
-  loading = computed(() => this.moviesService.loading());
   addToCollectionForm = this.fb.group({
     collectionID: new FormControl('', [Validators.required]),
   });
@@ -51,12 +50,22 @@ export class AddMovieToCollectionComponent implements OnInit {
   imagePath = environment.imagePath;
   displayDialog: boolean = false;
   id = this.route.snapshot.paramMap.get('id') || '';
-  movie = computed(() => this.moviesService.movieDetails());
+  movie = signal<IMovieDetails | null>(null);
 
   ngOnInit() {
-    if (!this.movie() || this.movie()!.id !== +this.id) {
-      this.moviesService.fetchMovieDetails(this.id);
-    }
+    this.moviesService
+      .fetchMovieDetails(this.id)
+      .pipe(
+        catchError((error) => {
+          this.movie.set(null);
+          console.error('Failed to fetch movie details', error);
+          this.router.navigate(['']);
+          throw EMPTY;
+        })
+      )
+      .subscribe((movieDetails) => {
+        this.movie.set(movieDetails);
+      });
     this.displayDialog = true;
     this.collectionsService.getCollections();
   }

@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { SessionService } from '../../core/services/session.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details',
@@ -37,22 +38,28 @@ export class MovieDetailsComponent implements OnInit {
   id = this.route.snapshot.paramMap.get('id') || '';
   imagePath = environment.imagePath;
   displayDialog: boolean = false;
-  movie = computed(() => this.moviesService.movieDetails());
+  movie = signal<IMovieDetails | null>(null);
   ratingValue = 0;
-  ratingChangeEffect = effect(
-    () => {
-      if (this.movie()) {
+
+  ngOnInit() {
+    this.moviesService
+      .fetchMovieDetails(this.id)
+      .pipe(
+        catchError((error) => {
+          this.movie.set(null);
+          this.moviesService.loading.set(false);
+          console.error('Failed to fetch movie details', error);
+          this.router.navigate(['']);
+          throw EMPTY;
+        })
+      )
+      .subscribe((movieDetails) => {
+        this.movie.set(movieDetails);
+        this.moviesService.loading.set(false);
         const movieRating = this.moviesService.getMovieRating(this.movie()!.id);
         this.ratingValue = movieRating ? movieRating.rate : 0;
-      }
-    },
-    { allowSignalWrites: true }
-  );
-  
-  ngOnInit() {
-    if (!this.movie() || this.movie()!.id !== +this.id) {
-      this.moviesService.fetchMovieDetails(this.id);
-    }
+      });
+
     this.displayDialog = true;
   }
 

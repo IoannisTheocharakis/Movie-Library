@@ -12,7 +12,6 @@ import { environment } from '../../../environments/environment.development';
 })
 export class MoviesService {
   private moviesResponseSignal = signal<IMoviesResponse | null>(null);
-  movieDetails = signal<IMovieDetails | null>(null);
   ratingList = signal<IMovieRate[]>([]);
   moviesQuerySignal = signal<string>('');
   http = inject(HttpClient);
@@ -43,17 +42,7 @@ export class MoviesService {
   fetchMovieDetails(movieID: number | string) {
     const url = `https://api.themoviedb.org/3/movie/${movieID}`;
     let params = new HttpParams().set('api_key', environment.apiKey || '');
-    this.loading.set(true);
-    return this.http.get<IMovieDetails>(url, { params }).subscribe({
-      next: (movie) => {
-        this.movieDetails.set(movie);
-        this.loading.set(false);
-      },
-      error: (error) => {
-        this.loading.set(false);
-        console.error('Failed to fetch movie details', error);
-      },
-    });
+    return this.http.get<IMovieDetails>(url, { params })
   }
 
   setMovieRating(sessionID: string, movieID: number | string, rating: number) {
