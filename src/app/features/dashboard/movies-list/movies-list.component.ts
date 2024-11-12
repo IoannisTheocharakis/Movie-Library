@@ -29,6 +29,7 @@ export class MoviesListComponent {
   private moviesService = inject(MoviesService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
   tmpArray = Array.from({ length: 20 }, (_, i) => i);
   query = computed(() => this.moviesService.moviesQuerySignal());
   currentPage = 0;
