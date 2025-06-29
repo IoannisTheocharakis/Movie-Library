@@ -6,7 +6,6 @@
   (onHide)="onCloseDialog()"
   header="Add to collection"
 >
-  @if(movie()){
   <div class="flex flex-column gap-3">
     <div>
       @if (collections().length>0) {
@@ -54,6 +53,5 @@
     </div>
     <app-movie-element [movie]="movie()!" />
   </div>
-  }
 </p-dialog>
 <p-toast />

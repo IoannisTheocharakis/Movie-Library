@@ -9,6 +9,7 @@ import { CollectionsListComponent } from './collections-list/collections-list.co
 import { CollectionDetailsComponent } from './collection-details/collection-details.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { EditCollectionComponent } from './edit-collection/edit-collection.component';
 
 @NgModule({
   declarations: [CollectionsComponent],
@@ -25,6 +26,10 @@ import { MessageService } from 'primeng/api';
       {
         path: 'create-collection',
         component: CreateCollectionComponent,
+      },
+      {
+        path: 'edit/:id',
+        component: EditCollectionComponent,
       },
       {
         path: ':id',

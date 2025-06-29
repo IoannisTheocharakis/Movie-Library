@@ -1,0 +1,43 @@
+<p-sidebar [(visible)]="sidebarVisible" class="burger-menu" position="right">
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-row gap-2 align-items-center">
+      <p-avatar
+        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+        shape="circle"
+        size="large"
+      />
+      <h2>Guest</h2>
+    </div>
+    <p-button
+      class="full-width-button"
+      label="Collections"
+      [text]="true"
+      (click)="navigateToCollections()"
+    />
+
+    <div class="flex justify-content-center">
+      <p-selectButton
+        [options]="themeOptions"
+        [(ngModel)]="themeValue"
+        (ngModelChange)="changeTheme($event)"
+        optionLabel="label"
+        optionValue="value"
+      >
+        <ng-template let-item pTemplate>
+          <div class="flex flex-row gap-1 align-items-center">
+            <i [class]="item.icon"></i>
+            <span>
+              {{ item.label }}
+            </span>
+          </div>
+        </ng-template>
+      </p-selectButton>
+    </div>
+  </div>
+</p-sidebar>
+<p-button
+  (onClick)="sidebarVisible = true"
+  [text]="true"
+  [rounded]="true"
+  icon="pi pi-bars"
+/>

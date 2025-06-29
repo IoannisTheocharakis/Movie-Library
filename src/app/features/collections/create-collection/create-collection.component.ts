@@ -27,6 +27,7 @@ export class CreateCollectionComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private collectionsService = inject(CollectionsService);
+  
   createCollectionForm = this.fb.group({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),

@@ -13,3 +13,16 @@
   border-radius: 10px !important;
   overflow: hidden !important;
 }
+
+.break-word {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.overlayPanel-width {
+  min-width:300px;
+}
+
+::ng-deep .overlayPanel-width .p-dropdown {
+  width: 100% !important;
+}

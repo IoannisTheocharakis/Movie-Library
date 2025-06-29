@@ -1,4 +1,11 @@
-import { Component, inject, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ThemeService } from '../../../core/services/theme.service';
@@ -7,6 +14,8 @@ import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
+import { THEME_OPTIONS } from '../../../core/public-variables';
+import { BurgerMenuComponent } from '../burger-menu/burger-menu.component';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     SelectButtonModule,
     FormsModule,
+    BurgerMenuComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -26,11 +36,8 @@ export class HeaderComponent {
   private router = inject(Router);
   overlayPanel = viewChild<OverlayPanel>('op');
   themeService = inject(ThemeService);
-  stateOptions = [
-    { label: 'Light', icon: 'pi pi-moon', value: 'light-theme' },
-    { label: 'Dark', icon: 'pi pi-sun', value: 'dark-theme' },
-  ];
-  
+
+  themeOptions = THEME_OPTIONS;
   value = this.themeService.currentTheme();
 
   changeTheme(theme: string) {

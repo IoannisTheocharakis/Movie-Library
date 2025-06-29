@@ -1,7 +1,16 @@
 @if(query() !== "a"){
 <h2 class="container">Search by "{{ query() }}"</h2>
-
-} @if (moviesResponse()?.results && moviesResponse()?.results!.length > 0) {
+} @if (loading()) {
+<div class="container grid">
+  @for ( tmp of tmpArray; track $index) {
+  <div class="col-12 lg:col-6">
+    <p-card class="w-full">
+      <app-skeleton-movie-element class="w-full" />
+    </p-card>
+  </div>
+  }
+</div>
+}@else if(moviesResponse()?.results && moviesResponse()?.results!.length > 0) {
 <div class="flex flex-column gap-4 container">
   <div class="grid">
     @for ( movie of moviesResponse()!.results; track movie.id) {

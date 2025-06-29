@@ -2,6 +2,21 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
 
+## API Key Setup
+
+To run this application, you need an API key from [The Movie Database (TMDb)](https://developer.themoviedb.org/docs/getting-started). Please follow these steps:
+
+1. Create an account on TMDb and generate your API key.
+2. Run the command `ng generate environments` to generate the environment files.
+3. In the development environment file, add the following format:
+
+   ```typescript
+   export const environment = {
+     production: false,
+     apiKey: 'YOUR_API_KEY_HERE',
+     imagePath: 'https://image.tmdb.org/t/p/',
+   };
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

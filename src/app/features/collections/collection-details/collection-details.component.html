@@ -6,45 +6,111 @@
       (click)="navigateBackToCollections()"
       [text]="true"
     />
-    <h1>Colllection</h1>
+    <div
+      class="flex flex-column sm:flex-row gap-2 align-items-center justify-content-between"
+    >
+      <h1>Colllection</h1>
+
+      <div class="flex align-items-center gap-2">
+        <p-button
+          label="Edit"
+          icon="pi pi-pencil"
+          [routerLink]="'../../collections/edit/' + collection()?.id"
+        />
+        <app-delete-button (removeFunction)="onRemoveCollection()" />
+      </div>
+    </div>
   </div>
 
   <div class="flex flex-column gap-1">
     <h2>Title</h2>
-    <p>{{ collection()?.title }}</p>
+    <p class="break-word">{{ collection()?.title }}</p>
   </div>
 
   <div class="flex flex-column gap-1">
     <h2>Description</h2>
-    <p>{{ collection()?.description }}</p>
+    <p class="break-word">{{ collection()?.description }}</p>
   </div>
   <div class="flex flex-column gap-1">
     <h2>Movies</h2>
     @if(collection() && collection()!.movies.length > 0 ){
-    <div class="grid">
-      @for (movie of collection()?.movies; track $index) {
-      <div class="col-12 md:col-6">
-        <p-card>
-          <app-movie-element [movie]="movie">
-            <p-button
-              icon="pi pi-trash"
-              class="z-5"
-              severity="danger"
-              [rounded]="true"
-              [text]="true"
-              (click)="
-                onRemoveMovieFromCollection(movie.id); $event.stopPropagation()
-              "
-            />
-          </app-movie-element>
-        </p-card>
+    <div class="flex flex-column gap-4 container p-0">
+      <div class="grid">
+        @for (movie of paginatedMovies(); track $index) {
+        <div class="col-12 md:col-6">
+          <p-card>
+            <app-movie-element [movie]="movie">
+              <div class="flex flex-row gap-1 align-items-center">
+                @if (collections()!.length >1) {
+                <p-button
+                  icon="pi pi-sort-alt rotate-90"
+                  class="z-5"
+                  [rounded]="true"
+                  [text]="true"
+                  (click)="transfer.toggle($event); $event.stopPropagation()"
+                />
+                <p-overlayPanel #transfer>
+                  <div class="flex flex-column gap-2 overlayPanel-width">
+                    <h2 class="m-0 p-0">Transfer movie</h2>
+                    <div class="flex flex-column gap-1">
+                      <label for="title">From</label>
+                      <h3 class="m-0 p-0">{{ collection()?.title }}</h3>
+                    </div>
+                    <i icon="pi pi-sort-alt rotate-90"></i>
+                    <form
+                      [formGroup]="transferMovieForm"
+                      (submit)="onSubmitTransfer(movie)"
+                      class="w-full"
+                    >
+                      <div class="flex flex-column gap-1">
+                        <label for="title">To</label>
+                        <p-dropdown
+                          formControlName="collectionID"
+                          class="w-full"
+                          [options]="otherCollections()"
+                          optionLabel="title"
+                          optionValue="id"
+                          placeholder="Select a collection"
+                        /><p-button
+                          label="Transfer"
+                          type="submit"
+                          [disabled]="!transferMovieForm.valid"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </p-overlayPanel>
+                }
+                <p-button
+                  icon="pi pi-trash"
+                  class="z-5"
+                  severity="danger"
+                  [rounded]="true"
+                  [text]="true"
+                  (click)="
+                    onRemoveMovieFromCollection($event, movie.id);
+                    $event.stopPropagation()
+                  "
+                />
+              </div>
+            </app-movie-element>
+          </p-card>
+        </div>
+        }
       </div>
-      }
+      <p-paginator
+        [rows]="rowsPerPage()"
+        [totalRecords]="collection()?.movies?.length"
+        (onPageChange)="onPageChange($event)"
+        styleClass="mt-4"
+        [rowsPerPageOptions]="[10, 20, 40]"
+      />
     </div>
     }@else{
     <h3>No movies found!</h3>
     }
   </div>
 </div>
+<p-confirmDialog />
 <p-toast />
 <router-outlet />

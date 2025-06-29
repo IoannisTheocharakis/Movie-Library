@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { signal } from '@angular/core';
+import { HERO_SECTION_IMAGES } from '../../../core/public-variables';
 
 @Component({
   selector: 'app-hero-section',
@@ -12,11 +13,7 @@ import { signal } from '@angular/core';
 export class HeroSectionComponent implements OnInit, OnDestroy {
   private intervalId: any;
 
-  images = [
-    'images/hero-section/movies1.jpg',
-    'images/hero-section/movies2.jpg',
-    'images/hero-section/movies3.jpg',
-  ];
+  images = HERO_SECTION_IMAGES;
   currentIndex = 0;
   currentImage = signal(this.images[this.currentIndex]);
   animationClass = signal('zoomin');

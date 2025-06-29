@@ -1,12 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MoviesService } from '../../core/services/movies.service';
-import { IMovieDetails } from '../../core/models/movies.model';
 import { environment } from '../../../environments/environment.development';
 import { MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CollectionsService } from '../../core/services/collections.service';
-import { ICollection } from '../../core/models/collections.model';
 import { ButtonModule } from 'primeng/button';
 import {
   FormBuilder,
@@ -17,6 +15,8 @@ import {
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { MovieElementComponent } from '../../shared/components/movie-element/movie-element.component';
+import { IMovieDetails } from '../../core/models/movies.model';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-add-movie-to-collection',
@@ -27,7 +27,8 @@ import { MovieElementComponent } from '../../shared/components/movie-element/mov
     RouterModule,
     DropdownModule,
     ToastModule,
-    ReactiveFormsModule,MovieElementComponent
+    ReactiveFormsModule,
+    MovieElementComponent,
   ],
   providers: [MessageService],
   templateUrl: './add-movie-to-collection.component.html',
@@ -45,22 +46,28 @@ export class AddMovieToCollectionComponent implements OnInit {
     collectionID: new FormControl('', [Validators.required]),
   });
 
-  collections = signal<ICollection[]>([]);
+  collections = computed(() => this.collectionsService.collections());
   imagePath = environment.imagePath;
   displayDialog: boolean = false;
   id = this.route.snapshot.paramMap.get('id') || '';
   movie = signal<IMovieDetails | null>(null);
 
   ngOnInit() {
-    this.displayDialog = true;
-    const collections = this.collectionsService.getCollections();
-    this.collections.set(collections);
-    this.moviesService.getMovieDetails(this.id).subscribe({
-      next: (movieDetails) => {
+    this.moviesService
+      .fetchMovieDetails(this.id)
+      .pipe(
+        catchError((error) => {
+          this.movie.set(null);
+          console.error('Failed to fetch movie details', error);
+          this.router.navigate(['']);
+          throw EMPTY;
+        })
+      )
+      .subscribe((movieDetails) => {
         this.movie.set(movieDetails);
-      },
-      error: (error) => console.error('Failed to fetch movie details', error),
-    });
+      });
+    this.displayDialog = true;
+    this.collectionsService.getCollections();
   }
 
   onSubmit() {

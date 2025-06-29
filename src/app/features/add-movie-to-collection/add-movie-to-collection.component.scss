@@ -1,5 +1,5 @@
 ::ng-deep .p-dialog {
-  min-width: 400px !important;
+  min-width: 800px !important;
   max-width: 1000px !important;
 }
 
@@ -12,7 +12,7 @@
   width: max-content !important;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 800px) {
   ::ng-deep .p-dialog {
     min-width: unset !important;
   }
