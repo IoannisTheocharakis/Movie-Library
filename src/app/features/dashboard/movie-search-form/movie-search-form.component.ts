@@ -25,7 +25,7 @@ export class MovieSearchFormComponent implements OnInit {
     query: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.pattern('^[a-zA-Z0-9]+$'),
+      Validators.pattern('^[a-zA-Z0-9\\s]+$'),
     ]),
   });
 
